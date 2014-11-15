@@ -1,0 +1,28 @@
+.bg {	
+	width: 200px;
+	margin: 50px auto;
+	position: relative;
+}
+.title1 {
+	position: absolute;
+	left: 20px;
+	-webkit-animation: show1 0.8s ;
+}
+@-webkit-keyframes show1 {
+	0% {
+		opacity: 0;
+		left: -50px;
+		-webkit-transform: rotate(0deg);
+
+	}
+	90% {
+		opacity: 1;
+		left: 22px;
+		-webkit-transform: rotate(400deg);
+	}
+	100% {
+		opacity: 1;
+		left: 20px;
+		-webkit-transform: rotate(360deg);
+	}
+}
