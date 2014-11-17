@@ -16,12 +16,14 @@
 	.orange-slide{background:#ff8604;}
 	.green-slide{background:#49a430;}
 	.pink-slide{background:#973e76;}
+	.swiper-slide{}
 	.swiper-slide .title1{font-size: 60px;width: 50px;
 		height: 50;line-height: 50px;font-weight: normal;}
 	.swiper-slide p{font-style:italic;font-size:25px;}
 	.pagination{position:absolute;z-index:20;left:10px;top:10px;}
 	.swiper-pagination-switch{display:block;width:8px;height:8px;border-radius:8px;background:#555;margin:0 0px 5px;opacity:0.8;border:1px solid #fff;cursor:pointer;}
 	.swiper-active-switch{background:#fff;}
+	.hide{display: none;}
 	</style>
 </head>
 <body>
@@ -29,11 +31,13 @@
 		<div class="swiper-wrapper">
 			<div class="swiper-slide blue-slide">
 				<div class="bg">					
-					<h1 class="title1 t1">14:00</h1>							
+					<h1 class="title t1">8</h1>							
 				</div>						
 			</div>
 			<div class="swiper-slide red-slide">
-				<h1 class="title">Keep swiping</h1>				
+				<div class="bg hide">
+					<h1 class="title ">Ke</h1>	
+				</div>			
 			</div>			
 		</div>		
 	</div>	
@@ -46,30 +50,56 @@
 
 	$(".swiper-container").css({"width": _w, "height": _h});
 
+	var kk;
+
 	var mySwiper = new Swiper('.swiper-container',{
 			speed: 500,
 		    mode: 'vertical',
-		    loop: true,		    
+		    loop: false,		    
 		    onFirstInit: function() {
-		    	console.log(21);
+		    	//console.log(21);
+		    },
+		    onTouchEnd: function(swiper) {
+		    	kk = swiper.activeLoopIndex;
+
+		    	// alert(kk+','+$(".bg").eq(kk).css("display"));
+		    },
+		    onSlideChangeStart: function(swiper){
+		    	var k = swiper.activeLoopIndex;
+				
 		    },
 		    onSlideChangeEnd: function(swiper, direction) {
 		    	var index = swiper.activeLoopIndex;
+		    	var len = $(".swiper-slide").length;
 
-		    	animateIndex(index);
+				animateIndex(index, len);
+
 		    	//console.log(direction);
 		    }
 
 	  });	
 
-	var animateIndex = function(index) {
-		var index = index + 1;
-		
-		$(".swiper-slide").eq(index).find("h1").hide().removeClass("t1");
+	var animateIndex = function(index, len) {
+		var index = index;
+
+// alert(kk+'----'+$(".bg").eq(kk).css("display"));
+// alert($(".bg").eq(index).attr("class"));
+
+		$(".bg").addClass('hide');
+		$(".bg").eq(index).removeClass("hide");
+
+// alert($(".bg").eq(index).css("display"));
+
+
+		$(".swiper-slide").eq(index).find("h1").removeClass("t1");
 
 		setTimeout(function(){
-			$(".swiper-slide").eq(index).find("h1").show().addClass("t1");
-		},300);		
+			$(".swiper-slide").eq(index).find("h1").addClass("t1");
+		},100);		
 	}
+
+
+
+
 </script>
 </html>
