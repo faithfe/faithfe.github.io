@@ -29,22 +29,17 @@
 		<div class="swiper-wrapper">
 			<div class="swiper-slide blue-slide">
 				<div class="bg">					
-					<h1 class="title1">9</h1>							
+					<h1 class="title1 t1">14:00</h1>							
 				</div>						
 			</div>
 			<div class="swiper-slide red-slide">
-				<div class="title">Slide 2</div>
-				<p>Keep swiping</p>
-			</div>
-			<div class="swiper-slide orange-slide">
-				<div class="title">Slide 3</div>
-				<p>The last one</p>
-			</div>
+				<h1 class="title">Keep swiping</h1>				
+			</div>			
 		</div>		
 	</div>	
 </body>
-<script src="http://www.idangero.us/sliders/swiper/demos/main-demos/js/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="swiper.js"></script>
+<script src="jQuery-1.10.1.min.js"></script>
+<script src="swiper.js"></script>
 <script>
 	var _w = $(window).width() + 'px',
 		_h = $(window).height() + 'px';
@@ -52,8 +47,29 @@
 	$(".swiper-container").css({"width": _w, "height": _h});
 
 	var mySwiper = new Swiper('.swiper-container',{
+			speed: 500,
 		    mode: 'vertical',
-		    loop: true
-	  });
+		    loop: true,		    
+		    onFirstInit: function() {
+		    	console.log(21);
+		    },
+		    onSlideChangeEnd: function(swiper, direction) {
+		    	var index = swiper.activeLoopIndex;
+
+		    	animateIndex(index);
+		    	//console.log(direction);
+		    }
+
+	  });	
+
+	var animateIndex = function(index) {
+		var index = index + 1;
+		
+		$(".swiper-slide").eq(index).find("h1").hide().removeClass("t1");
+
+		setTimeout(function(){
+			$(".swiper-slide").eq(index).find("h1").show().addClass("t1");
+		},300);		
+	}
 </script>
 </html>
