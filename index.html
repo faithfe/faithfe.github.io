@@ -31,16 +31,25 @@
 		<div class="swiper-wrapper">
 			<div class="swiper-slide blue-slide">
 				<div class="bg">					
-					<h1 class="title t1">8</h1>							
+					<h1 class="title t1">6</h1>
+
+					<div class="content">演示的内容而已</div>						
 				</div>						
 			</div>
 			<div class="swiper-slide red-slide">
 				<div class="bg hide">
-					<h1 class="title ">Ke</h1>	
+					<h1 class="title ">8</h1>	
+					<div class="content hide fadein">第二页的内容动画</div>
+				</div>			
+			</div>	
+			<div class="swiper-slide green-slide">
+				<div class="bg hide">
+					<h1 class="title ">9</h1>	
+					<div class="content hide fadein">Page 3 的内容动画</div>
 				</div>			
 			</div>			
 		</div>		
-	</div>	
+	</div>
 </body>
 <script src="jQuery-1.10.1.min.js"></script>
 <script src="swiper.js"></script>
@@ -50,19 +59,20 @@
 
 	$(".swiper-container").css({"width": _w, "height": _h});
 
-	var kk;
-
 	var mySwiper = new Swiper('.swiper-container',{
 			speed: 500,
 		    mode: 'vertical',
 		    loop: false,		    
-		    onFirstInit: function() {
-		    	//console.log(21);
-		    },
-		    onTouchEnd: function(swiper) {
-		    	kk = swiper.activeLoopIndex;
+		    onFirstInit: function(swiper) {
+		    	var index = swiper.activeLoopIndex;
 
-		    	// alert(kk+','+$(".bg").eq(kk).css("display"));
+		    	$(".content").eq(index).addClass("hide");	
+		    	setTimeout(function(){
+					$(".content").eq(index).removeClass("hide");				
+					$(".swiper-slide").eq(index).find(".content").addClass("fadein");
+				},1000);
+		    },
+		    onTouchEnd: function(swiper) {		    	
 		    },
 		    onSlideChangeStart: function(swiper){
 		    	var k = swiper.activeLoopIndex;
@@ -74,7 +84,6 @@
 
 				animateIndex(index, len);
 
-		    	//console.log(direction);
 		    }
 
 	  });	
@@ -82,24 +91,23 @@
 	var animateIndex = function(index, len) {
 		var index = index;
 
-// alert(kk+'----'+$(".bg").eq(kk).css("display"));
-// alert($(".bg").eq(index).attr("class"));
-
-		$(".bg").addClass('hide');
-		$(".bg").eq(index).removeClass("hide");
-
-// alert($(".bg").eq(index).css("display"));
-
+		$(".bg").addClass('hide');	
+		$(".content").addClass('hide');
 
 		$(".swiper-slide").eq(index).find("h1").removeClass("t1");
+		$(".swiper-slide").eq(index).find(".content").removeClass("fadein");
 
 		setTimeout(function(){
+			$(".bg").eq(index).removeClass("hide");
 			$(".swiper-slide").eq(index).find("h1").addClass("t1");
+
+			setTimeout(function(){
+				$(".content").eq(index).removeClass("hide");				
+				$(".swiper-slide").eq(index).find(".content").addClass("fadein");
+			},1000);
+
 		},100);		
 	}
-
-
-
 
 </script>
 </html>
